@@ -23,3 +23,10 @@ class TestCreateBankAccount(unittest.TestCase):
         konto = Konto(self.imie, self.nazwisko, self.pesel + "000")
         self.assertEqual(konto.pesel, "Niepoprawny pesel!", "Pesel nie został zapisany!")
 
+    def test_tworzenie_z_poprawnym_kodem_rabatowym(self):
+        konto = Konto(self.imie, self.nazwisko, self.pesel, "PROM_XYZ")
+        self.assertEqual(konto.saldo, 50, "Saldo nie zostało zwiększone!")
+
+    def test_tworzenie_z_niepoprawnym_kodem_rabatowym(self):
+        konto = Konto(self.imie, self.nazwisko, self.pesel, "XYZ1")
+        self.assertEqual(konto.saldo, 0, "Saldo zostało zwiększone!")
