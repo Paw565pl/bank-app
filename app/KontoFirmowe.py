@@ -1,6 +1,8 @@
 from .Konto import Konto
 
 class KontoFirmowe(Konto):
+    express_transfer_fee = 5
+
     def __init__(self, company_name, nip):
         self.company_name = company_name
 

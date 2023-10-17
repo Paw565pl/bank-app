@@ -1,7 +1,6 @@
 import unittest
-
-from app import KontoFirmowe
 from ..KontoOsobiste import KontoOsobiste
+from ..KontoFirmowe import KontoFirmowe
 
 
 class TestBankAccountTransfers(unittest.TestCase):

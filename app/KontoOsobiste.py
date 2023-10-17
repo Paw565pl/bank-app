@@ -3,10 +3,11 @@ from .Konto import Konto
 
 
 class KontoOsobiste(Konto):
+    express_transfer_fee = 1
+
     def __init__(self, imie, nazwisko, pesel, kod_rabatowy=None):
         self.imie = imie
         self.nazwisko = nazwisko
-        self.saldo = 0
 
         if len(str(pesel)) == 11:
             self.pesel = pesel
