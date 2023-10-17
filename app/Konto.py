@@ -36,3 +36,11 @@ class Konto:
         if cyfra_roku > 60 or cyfra_miesiaca > 12:
             return True
         return False
+
+    def przelew_wychodzacy(self, kwota):
+        if kwota > 0 and self.saldo >= kwota:
+            self.saldo -= kwota
+
+    def przelew_przychodzacy(self, kwota):
+        if kwota > 0:
+            self.saldo += kwota
