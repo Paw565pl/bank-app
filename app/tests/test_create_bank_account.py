@@ -1,5 +1,5 @@
 import unittest
-from ..Konto import Konto
+from ..KontoOsobiste import KontoOsobiste
 
 
 class TestCreateBankAccount(unittest.TestCase):
@@ -12,7 +12,7 @@ class TestCreateBankAccount(unittest.TestCase):
     niepoprawny_kod_promocyjny = kod_promocyjny[5:]
 
     def test_tworzenie_konta(self):
-        konto = Konto(self.imie, self.nazwisko, self.pesel)
+        konto = KontoOsobiste(self.imie, self.nazwisko, self.pesel)
         self.assertEqual(konto.imie, self.imie, "Imie nie zostało zapisane!")
         self.assertEqual(
             konto.nazwisko, self.nazwisko, "Nazwisko nie zostało zapisane!"
@@ -22,47 +22,53 @@ class TestCreateBankAccount(unittest.TestCase):
         self.assertEqual(len(str(konto.pesel)), 11)
 
     def test_tworzenie_konta_z_krotkim_peselem(self):
-        konto = Konto(self.imie, self.nazwisko, self.za_krotki_pesel)
+        konto = KontoOsobiste(self.imie, self.nazwisko, self.za_krotki_pesel)
         self.assertEqual(
             konto.pesel, "Niepoprawny pesel!", "Pesel nie został zapisany!"
         )
 
     def test_tworzenie_konta_z_dlugim_peselem(self):
-        konto = Konto(self.imie, self.nazwisko, self.za_dlugi_pesel)
+        konto = KontoOsobiste(self.imie, self.nazwisko, self.za_dlugi_pesel)
         self.assertEqual(
             konto.pesel, "Niepoprawny pesel!", "Pesel nie został zapisany!"
         )
 
     def test_tworzenie_z_poprawnym_kodem_rabatowym(self):
-        konto = Konto(self.imie, self.nazwisko, self.pesel, self.kod_promocyjny)
+        konto = KontoOsobiste(self.imie, self.nazwisko, self.pesel, self.kod_promocyjny)
         self.assertEqual(konto.saldo, 50, "Saldo nie zostało zwiększone!")
 
     def test_tworzenie_z_niepoprawnym_kodem_rabatowym(self):
-        konto = Konto(
+        konto = KontoOsobiste(
             self.imie, self.nazwisko, self.pesel, self.niepoprawny_kod_promocyjny
         )
         self.assertEqual(konto.saldo, 0, "Saldo zostało zwiększone!")
 
     def test_tworzenie_z_poprawnym_kodem_rabatowym_zly_pesel(self):
-        konto = Konto(
+        konto = KontoOsobiste(
             self.imie, self.nazwisko, self.za_krotki_pesel, self.kod_promocyjny
         )
         self.assertEqual(konto.saldo, 0, "Saldo zostało zwiększone!")
 
     def test_osoba_urodzona_w_1960_brak_zwiekszonego_salda(self):
-        konto = Konto(self.imie, self.nazwisko, "60042687887", self.kod_promocyjny)
+        konto = KontoOsobiste(
+            self.imie, self.nazwisko, "60042687887", self.kod_promocyjny
+        )
         self.assertEqual(konto.saldo, 0, "Saldo zostało zwiększone!")
 
     def test_osoba_urodzona_w_1970_zly_kod_brak_zwiekszonego_salda(self):
-        konto = Konto(
+        konto = KontoOsobiste(
             self.imie, self.nazwisko, "70092182867", self.niepoprawny_kod_promocyjny
         )
         self.assertEqual(konto.saldo, 0, "Saldo zostało zwiększone!")
 
     def test_osoba_urodzona_w_1970_zwiekszone_saldo(self):
-        konto = Konto(self.imie, self.nazwisko, "70092182867", self.kod_promocyjny)
+        konto = KontoOsobiste(
+            self.imie, self.nazwisko, "70092182867", self.kod_promocyjny
+        )
         self.assertEqual(konto.saldo, 50, "Saldo nie zostało zwiększone!")
 
     def test_osoba_urodzona_w_2003_zwiekszone_saldo(self):
-        konto = Konto(self.imie, self.nazwisko, "03241178518", self.kod_promocyjny)
+        konto = KontoOsobiste(
+            self.imie, self.nazwisko, "03241178518", self.kod_promocyjny
+        )
         self.assertEqual(konto.saldo, 50, "Saldo nie zostało zwiększone!")
