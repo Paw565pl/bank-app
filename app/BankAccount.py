@@ -10,6 +10,6 @@ class BankAccount:
         if amount > 0 and self.balance >= amount:
             self.balance -= amount
 
-    def express_outcoming_transfer(self, amount):
+    def express_outgoing_transfer(self, amount):
         if amount > 0 and self.balance >= amount:
             self.balance -= amount + self.express_transfer_fee

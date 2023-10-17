@@ -32,17 +32,17 @@ class TestBankAccountTransfers(unittest.TestCase):
     def test_express_transfer_private_account(self):
         account = PrivateBankAccount(*self.person.values())
         account.balance = 200
-        account.express_outcoming_transfer(100)
+        account.express_outgoing_transfer(100)
         self.assertEqual(account.balance, 200 - 100 - 1, "Balance is invalid!")
 
     def test_express_transfer_company_account(self):
         account = CompanyBankAccount(*self.company.values())
         account.balance = 200
-        account.express_outcoming_transfer(100)
+        account.express_outgoing_transfer(100)
         self.assertEqual(account.balance, 200 - 100 - 5, "Balance is invalid!")
 
-    def test_express_transfer_with_amount_greater_than_balance(self):
+    def test_express_transfer_amount_greater_than_balance(self):
         account = PrivateBankAccount(*self.person.values())
         account.balance = 200
-        account.express_outcoming_transfer(300)
-        self.assertEqual(account.balance, 200, "Balance is invalid!")
+        account.express_outgoing_transfer(300)
+        self.assertEqual(account.balance, 200, "Balance was changed!")
