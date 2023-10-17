@@ -1,17 +1,18 @@
 import unittest
-from ..KontoFirmowe import KontoFirmowe
+from ..CompanyBankAccount import CompanyBankAccount
 
 
 class TestCreateCompanyBankAccount(unittest.TestCase):
     company_name = "test company"
-    good_nip = "1234567890"
+    nip = "1234567890"
 
-    def test_create_good_data(self):
-        konto = KontoFirmowe(self.company_name, self.good_nip)
-        self.assertEqual(konto.company_name, self.company_name, "Bad company name!")
-        self.assertEqual(konto.nip, self.good_nip, "Bad nip!")
+    def test_valid_data(self):
+        account = CompanyBankAccount(self.company_name, self.nip)
+        self.assertEqual(
+            account.company_name, self.company_name, "Invalid company name!"
+        )
+        self.assertEqual(account.nip, self.nip, "Bad nip!")
 
-    def test_create_bad_data(self):
-        konto = KontoFirmowe(self.company_name, "")
-        self.assertEqual(konto.company_name, self.company_name, "Bad company name!")
-        self.assertEqual(konto.nip, "Niepoprawny NIP!", "Nip was saved!")
+    def test_invalid_nip(self):
+        account = CompanyBankAccount(self.company_name, "")
+        self.assertEqual(account.nip, "Niepoprawny NIP!", "Nip was saved!")

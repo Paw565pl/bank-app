@@ -1,41 +1,48 @@
 import unittest
-from ..KontoOsobiste import KontoOsobiste
-from ..KontoFirmowe import KontoFirmowe
+from ..BankAccount import BankAccount
+from ..PrivateBankAccount import PrivateBankAccount
+from ..CompanyBankAccount import CompanyBankAccount
 
 
 class TestBankAccountTransfers(unittest.TestCase):
-    osoba1 = {"imie1": "Dariusz", "nazwisko1": "Januszewski", "pesel1": "94031633999"}
+    person = {
+        "first_name": "Dariusz",
+        "second_name": "Januszewski",
+        "pesel": "94031633999",
+    }
 
-    def test_przelew_wychodzacy_brak_salda_brak_zmiany_salda(self):
-        konto = KontoOsobiste(*self.osoba1.values())
-        konto.przelew_wychodzacy(50)
-        self.assertEqual(konto.saldo, 0, "Saldo zmieniło się!")
+    company = {"name": "test", "nip": "1234567890"}
 
-    def test_przelew_wychodzacy_jest_saldo_zmiana_salda(self):
-        konto = KontoOsobiste(*self.osoba1.values())
-        konto.saldo = 100
-        konto.przelew_wychodzacy(50)
-        self.assertEqual(konto.saldo, 50, "Saldo nie zmniejszyło się!")
+    def test_incoming_transfer_balance_change(self):
+        account = BankAccount()
+        account.incoming_transfer(50)
+        self.assertEqual(account.balance, 50, "Balance was not increased!")
 
-    def test_przelew_przychodzacy_zmiana_salda(self):
-        konto = KontoOsobiste(*self.osoba1.values())
-        konto.przelew_przychodzacy(50)
-        self.assertEqual(konto.saldo, 50, "Saldo nie zwiększyło się!")
+    def test_outgoing_transfer_too_low_balance_no_balance_change(self):
+        account = BankAccount()
+        account.outgoing_transfer(50)
+        self.assertEqual(account.balance, 0, "Balance was changed!")
+
+    def test_outgoing_transfer_balance_change(self):
+        account = BankAccount()
+        account.balance = 100
+        account.outgoing_transfer(50)
+        self.assertEqual(account.balance, 50, "Balance was not decreased!")
 
     def test_express_transfer_private_account(self):
-        konto = KontoOsobiste(*self.osoba1.values())
-        konto.saldo = 120
-        konto.przelew_wychodzacy_ekspresowy(100)
-        self.assertEqual(konto.saldo, 120 - 100 - 1, "Saldo nie jest poprawne!")
+        account = PrivateBankAccount(*self.person.values())
+        account.balance = 200
+        account.express_outcoming_transfer(100)
+        self.assertEqual(account.balance, 200 - 100 - 1, "Balance is invalid!")
 
     def test_express_transfer_company_account(self):
-        konto = KontoFirmowe("test1", "1234567890")
-        konto.saldo = 120
-        konto.przelew_wychodzacy_ekspresowy(100)
-        self.assertEqual(konto.saldo, 120 - 100 - 5, "Saldo nie jest poprawne!")
+        account = CompanyBankAccount(*self.company.values())
+        account.balance = 200
+        account.express_outcoming_transfer(100)
+        self.assertEqual(account.balance, 200 - 100 - 5, "Balance is invalid!")
 
     def test_express_transfer_with_amount_greater_than_balance(self):
-        konto = KontoOsobiste(*self.osoba1.values())
-        konto.saldo = 200
-        konto.przelew_wychodzacy_ekspresowy(300)
-        self.assertEqual(konto.saldo, 200, "Saldo nie jest poprawne!")
+        account = PrivateBankAccount(*self.person.values())
+        account.balance = 200
+        account.express_outcoming_transfer(300)
+        self.assertEqual(account.balance, 200, "Balance is invalid!")

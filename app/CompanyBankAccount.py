@@ -1,6 +1,7 @@
-from .Konto import Konto
+from .BankAccount import BankAccount
 
-class KontoFirmowe(Konto):
+
+class CompanyBankAccount(BankAccount):
     express_transfer_fee = 5
 
     def __init__(self, company_name, nip):
