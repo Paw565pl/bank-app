@@ -5,9 +5,9 @@ from .BankAccount import BankAccount
 class PrivateBankAccount(BankAccount):
     express_transfer_fee = 1
 
-    def __init__(self, first_name, second_name, pesel, promo_code=None):
+    def __init__(self, first_name, last_name, pesel, promo_code=None):
         self.first_name = first_name
-        self.second_name = second_name
+        self.last_name = last_name
 
         if len(str(pesel)) == 11:
             self.pesel = pesel

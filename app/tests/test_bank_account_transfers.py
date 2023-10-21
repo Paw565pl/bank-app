@@ -7,10 +7,9 @@ from ..CompanyBankAccount import CompanyBankAccount
 class TestBankAccountTransfers(unittest.TestCase):
     person = {
         "first_name": "Dariusz",
-        "second_name": "Januszewski",
+        "last_name": "Januszewski",
         "pesel": "94031633999",
     }
-
     company = {"name": "test", "nip": "1234567890"}
 
     def test_incoming_transfer_balance_change(self):
