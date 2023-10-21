@@ -33,19 +33,19 @@ class TestCreatePrivateBankAccount(unittest.TestCase):
         )
         self.assertEqual(account.pesel, "Niepoprawny pesel!", "Pesel was saved!")
 
-    def test_valid_promo_code(self):
+    def test_valid_promo_code_balance_increase(self):
         account = PrivateBankAccount(
             self.first_name, self.last_name, self.pesel, self.promo_code
         )
         self.assertEqual(account.balance, 50, "Balance was not increased!")
 
-    def test_invalid_promo_code(self):
+    def test_invalid_promo_code_no_balance_increase(self):
         account = PrivateBankAccount(
             self.first_name, self.last_name, self.pesel, self.invalid_promo_code
         )
         self.assertEqual(account.balance, 0, "Balance was increased!")
 
-    def test_valid_promo_code_invalid_pesel(self):
+    def test_valid_promo_code_invalid_pesel_no_balance_increase(self):
         account = PrivateBankAccount(
             self.first_name, self.last_name, self.too_short_pesel, self.promo_code
         )
