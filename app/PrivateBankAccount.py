@@ -5,11 +5,13 @@ from .BankAccount import BankAccount
 class PrivateBankAccount(BankAccount):
     express_transfer_fee = 1
 
-    def __init__(self, first_name, last_name, pesel, promo_code=None):
+    def __init__(
+        self, first_name: str, last_name: str, pesel: str, promo_code: str = None
+    ) -> None:
         self.first_name = first_name
         self.last_name = last_name
 
-        if len(str(pesel)) == 11:
+        if len(pesel) == 11:
             self.pesel = pesel
         else:
             self.pesel = "Niepoprawny pesel!"
