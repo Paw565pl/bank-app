@@ -22,7 +22,7 @@ class PrivateBankAccount(BankAccount):
             self.balance = 50
 
     def __is_promo_code_valid(self, promo_code: str) -> bool:
-        if promo_code == None:
+        if promo_code is None:
             return False
 
         pattern = r"^PROM_.{3}$"
