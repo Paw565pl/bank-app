@@ -16,12 +16,12 @@ class PrivateBankAccount(BankAccount):
         else:
             self.pesel = "Niepoprawny pesel!"
 
-        if self.is_promo_code_valid(promo_code) and self.is_qualified_for_promo(
+        if self.__is_promo_code_valid(promo_code) and self.__is_qualified_for_promo(
             self.pesel
         ):
             self.balance = 50
 
-    def is_promo_code_valid(self, promo_code: str) -> bool:
+    def __is_promo_code_valid(self, promo_code: str) -> bool:
         if promo_code == None:
             return False
 
@@ -30,7 +30,7 @@ class PrivateBankAccount(BankAccount):
 
         return bool(match)
 
-    def is_qualified_for_promo(self, pesel: str) -> bool:
+    def __is_qualified_for_promo(self, pesel: str) -> bool:
         if pesel == "Niepoprawny pesel!":
             return False
 
