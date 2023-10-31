@@ -1,4 +1,5 @@
 from re import match as re_match
+
 from .BankAccount import BankAccount
 
 
@@ -41,3 +42,31 @@ class PrivateBankAccount(BankAccount):
         if year_digits > 60 or month_digits > 12:
             return True
         return False
+
+    def take_loan(self, amount: int) -> bool:
+        first_condition = self.__check_if_three_last_transfers_are_incoming()
+        second_condition = (
+            self.__check_if_sum_of_last_five_transfers_is_bigger_than_loan_amount(
+                amount
+            )
+        )
+
+        if first_condition or second_condition:
+            self.balance += amount
+            return True
+
+        return False
+
+    def __check_if_three_last_transfers_are_incoming(self) -> bool:
+        last_three_transfers = self.transfer_history[-3:]
+        if len(last_three_transfers) != 3:
+            return False
+        return all(transfer > 0 for transfer in last_three_transfers)
+
+    def __check_if_sum_of_last_five_transfers_is_bigger_than_loan_amount(
+        self, loan_amount
+    ) -> bool:
+        last_five_transfers = self.transfer_history[-5:]
+        if len(last_five_transfers) != 5:
+            return False
+        return sum(last_five_transfers) > loan_amount
