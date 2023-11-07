@@ -5,7 +5,7 @@ from parameterized import parameterized
 from ..PrivateBankAccount import PrivateBankAccount
 
 
-class TestLoan(unittest.TestCase):
+class TestLoanPrivateAccount(unittest.TestCase):
     person = {
         "first_name": "Dariusz",
         "last_name": "Januszewski",
