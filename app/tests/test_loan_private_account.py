@@ -2,7 +2,6 @@ import unittest
 
 from parameterized import parameterized
 
-from ..CompanyBankAccount import CompanyBankAccount
 from ..PrivateBankAccount import PrivateBankAccount
 
 
