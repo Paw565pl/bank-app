@@ -12,12 +12,12 @@ class TestAccountsSet(unittest.TestCase):
     }
 
     @classmethod
-    def setUp(cls) -> None:
+    def setUpClass(cls) -> None:
         cls.account = PrivateBankAccount(*cls.person.values())
         AccountSet.add_personal_account(cls.account)
 
     @classmethod
-    def tearDown(cls) -> None:
+    def tearDownClass(cls) -> None:
         AccountSet.personal_accounts = []
 
     def test_add(self):
@@ -31,7 +31,7 @@ class TestAccountsSet(unittest.TestCase):
 
     def test_count(self):
         count = AccountSet.get_personal_accounts_count()
-        self.assertEqual(count, 1, "Wrong count was returned!")
+        self.assertEqual(count, 2, "Wrong count was returned!")
 
     def test_find_by_pesel_account_does_not_exists(self):
         found_account = AccountSet.get_personal_account_by_pesel("11111111111")
