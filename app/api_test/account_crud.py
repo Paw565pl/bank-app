@@ -41,3 +41,9 @@ class TestAccountCrud(unittest.TestCase):
             data["last_name"], self.person["last_name"], "Invalid last name!"
         )
         self.assertEqual(data["pesel"], self.person["pesel"], "Invalid pesel!")
+
+    def test_update_account(self):
+        response = requests.patch(
+            f"{self.url}/{self.person["pesel"]}", json={"first_name": "john"}
+        )
+        self.assertEqual(response.status_code, 200, "Invalid status code!")

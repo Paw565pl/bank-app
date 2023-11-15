@@ -6,8 +6,8 @@ from .PrivateBankAccount import PrivateBankAccount
 app = Flask(__name__)
 
 
-@app.route("/api/accounts", methods=["POST"])
-def create_personal_account():
+@app.post("/api/accounts")
+def post_create_personal_account():
     data = request.get_json()
 
     account = PrivateBankAccount(data["first_name"], data["last_name"], data["pesel"])
@@ -16,17 +16,33 @@ def create_personal_account():
     return jsonify({"message": "personal account was created"}), 201
 
 
-@app.route("/api/accounts/count", methods=["GET"])
-def personal_accounts_count():
+@app.get("/api/accounts/count")
+def get_personal_accounts_count():
     count = AccountSet.get_personal_accounts_count()
     return jsonify({"count": count})
 
 
-@app.route("/api/accounts/<pesel>", methods=["GET"])
-def personal_account(pesel):
+@app.get("/api/accounts/<pesel>")
+def get_personal_account(pesel):
     account = AccountSet.get_personal_account_by_pesel(pesel)
 
     if not account:
         return jsonify({"message": "account with the given pesel does not exist"}), 404
 
     return jsonify(account.__dict__)
+
+
+@app.patch("/api/accounts/<pesel>")
+def patch_personal_account(pesel):
+    account = AccountSet.get_personal_account_by_pesel(pesel)
+
+    if not account:
+        return jsonify({"message": "account with the given pesel does not exist"}), 404
+
+    data = request.get_json()
+
+    for key, value in data.items():
+        if hasattr(account, key):
+            setattr(account, key, value)
+
+    return jsonify({"message": "account updated successfully"})
