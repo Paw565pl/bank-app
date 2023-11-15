@@ -18,7 +18,7 @@ class TestAccountCrud(unittest.TestCase):
 
     @classmethod
     def tearDownClass(self) -> None:
-        AccountSet.personal_accounts = []
+        AccountSet.private_accounts = []
 
     def test_1_create_account(self):
         response = requests.post(self.url, json=self.person)

@@ -7,24 +7,24 @@ app = Flask(__name__)
 
 
 @app.post("/api/accounts")
-def post_create_personal_account():
+def post_create_private_account():
     data = request.get_json()
 
     account = PrivateBankAccount(data["first_name"], data["last_name"], data["pesel"])
-    AccountSet.add_personal_account(account)
+    AccountSet.add_private_account(account)
 
-    return jsonify({"message": "personal account was created"}), 201
+    return jsonify({"message": "private account was created"}), 201
 
 
 @app.get("/api/accounts/count")
-def get_personal_accounts_count():
-    count = AccountSet.get_personal_accounts_count()
+def get_private_accounts_count():
+    count = AccountSet.get_private_accounts_count()
     return jsonify({"count": count})
 
 
 @app.get("/api/accounts/<pesel>")
-def get_personal_account(pesel):
-    account = AccountSet.get_personal_account_by_pesel(pesel)
+def get_private_account(pesel):
+    account = AccountSet.get_private_account_by_pesel(pesel)
 
     if not account:
         return jsonify({"message": "account with the given pesel does not exist"}), 404
@@ -33,8 +33,8 @@ def get_personal_account(pesel):
 
 
 @app.patch("/api/accounts/<pesel>")
-def patch_personal_account(pesel):
-    account = AccountSet.get_personal_account_by_pesel(pesel)
+def patch_private_account(pesel):
+    account = AccountSet.get_private_account_by_pesel(pesel)
 
     if not account:
         return jsonify({"message": "account with the given pesel does not exist"}), 404
@@ -49,12 +49,12 @@ def patch_personal_account(pesel):
 
 
 @app.delete("/api/accounts/<pesel>")
-def delete_personal_account(pesel):
-    account = AccountSet.get_personal_account_by_pesel(pesel)
+def delete_private_account(pesel):
+    account = AccountSet.get_private_account_by_pesel(pesel)
 
     if not account:
         return jsonify({"message": "account with the given pesel does not exist"}), 404
 
-    AccountSet.personal_accounts.remove(account)
+    AccountSet.private_accounts.remove(account)
 
     return jsonify({"message": "account deleted successfully"})

@@ -2,20 +2,20 @@ from .PrivateBankAccount import PrivateBankAccount
 
 
 class AccountSet:
-    personal_accounts = []
+    private_accounts = []
 
     @classmethod
-    def add_personal_account(cls, account: PrivateBankAccount) -> None:
-        cls.personal_accounts.append(account)
+    def add_private_account(cls, account: PrivateBankAccount) -> None:
+        cls.private_accounts.append(account)
 
     @classmethod
-    def get_personal_accounts_count(cls):
-        return len(cls.personal_accounts)
+    def get_private_accounts_count(cls):
+        return len(cls.private_accounts)
 
     @classmethod
-    def get_personal_account_by_pesel(cls, pesel: str) -> PrivateBankAccount | None:
+    def get_private_account_by_pesel(cls, pesel: str) -> PrivateBankAccount | None:
         found_account = [
-            account for account in cls.personal_accounts if account.pesel == pesel
+            account for account in cls.private_accounts if account.pesel == pesel
         ]
 
         if len(found_account) != 0:
