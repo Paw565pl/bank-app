@@ -46,3 +46,15 @@ def patch_personal_account(pesel):
             setattr(account, key, value)
 
     return jsonify({"message": "account updated successfully"})
+
+
+@app.delete("/api/accounts/<pesel>")
+def delete_personal_account(pesel):
+    account = AccountSet.get_personal_account_by_pesel(pesel)
+
+    if not account:
+        return jsonify({"message": "account with the given pesel does not exist"}), 404
+
+    AccountSet.personal_accounts.remove(account)
+
+    return jsonify({"message": "account deleted successfully"})
