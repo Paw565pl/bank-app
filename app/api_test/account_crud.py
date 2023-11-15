@@ -36,7 +36,7 @@ class TestAccountCrud(unittest.TestCase):
         self.assertEqual(response.status_code, 404, "Invalid status code!")
 
     def test_4_get_account_account_exists(self):
-        response = requests.get(f"{self.url}/{self.person["pesel"]}")
+        response = requests.get(f"{self.url}/{self.person['pesel']}")
         data = response.json()
 
         self.assertEqual(response.status_code, 200, "Invalid status code!")
@@ -50,10 +50,10 @@ class TestAccountCrud(unittest.TestCase):
 
     def test_5_update_account(self):
         response = requests.patch(
-            f"{self.url}/{self.person["pesel"]}", json={"first_name": "john"}
+            f"{self.url}/{self.person['pesel']}", json={"first_name": "john"}
         )
         self.assertEqual(response.status_code, 200, "Invalid status code!")
 
     def test_6_delete_account(self):
-        response = requests.delete(f"{self.url}/{self.person["pesel"]}")
+        response = requests.delete(f"{self.url}/{self.person['pesel']}")
         self.assertEqual(response.status_code, 200, "Invalid status code!")
