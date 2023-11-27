@@ -62,3 +62,21 @@ def delete_private_account(pesel):
     AccountSet.private_accounts.remove(account)
 
     return jsonify({"message": "account deleted successfully"})
+
+
+@app.post("/api/accounts/<pesel>/transfer")
+def private_account_do_transfer(pesel):
+    data = request.get_json()
+    amount = data["amount"]
+    type = data["type"].lower()
+
+    account = AccountSet.get_private_account_by_pesel(pesel)
+    if not account:
+        return jsonify({"message": "account with the given pesel does not exist"}), 404
+
+    if type == "incoming":
+        account.incoming_transfer(amount)
+    elif type == "outgoing":
+        account.outgoing_transfer(amount)
+
+    return jsonify({"message": "transfer has been accepted for execution"}), 200
