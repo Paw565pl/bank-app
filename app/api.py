@@ -10,6 +10,10 @@ app = Flask(__name__)
 def post_create_private_account():
     data = request.get_json()
 
+    account_with_given_pesel = AccountSet.get_private_account_by_pesel(data["pesel"])
+    if account_with_given_pesel is not None:
+        return jsonify({"message": "account with this pesel already exists"}), 409
+
     account = PrivateBankAccount(data["first_name"], data["last_name"], data["pesel"])
     AccountSet.add_private_account(account)
 

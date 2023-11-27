@@ -24,6 +24,10 @@ class TestAccountCrud(unittest.TestCase):
         response = requests.post(self.url, json=self.person)
         self.assertEqual(response.status_code, 201, "Account was not created!")
 
+    def test_6_create_account_with_pesel_already_exists(self):
+        response = requests.post(self.url, json=self.person)
+        self.assertEqual(response.status_code, 409, "Invalid status code!")
+
     def test_2_accounts_count(self):
         response = requests.get(f"{self.url}/count")
         data = response.json()
@@ -54,6 +58,6 @@ class TestAccountCrud(unittest.TestCase):
         )
         self.assertEqual(response.status_code, 200, "Invalid status code!")
 
-    def test_6_delete_account(self):
+    def test_7_delete_account(self):
         response = requests.delete(f"{self.url}/{self.person['pesel']}")
         self.assertEqual(response.status_code, 200, "Invalid status code!")
