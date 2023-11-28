@@ -2,8 +2,6 @@ import unittest
 
 import requests
 
-from ..AccountSet import AccountSet
-
 
 class TestAccountTransfer(unittest.TestCase):
     url = "http://localhost:5000/api/accounts"
@@ -47,9 +45,9 @@ class TestAccountTransfer(unittest.TestCase):
         self.assertEqual(account["balance"], 100, "Invalid account balance!")
 
     def test_unsuccessful_outgoing_transfer(self):
-        body_outgoing = {"amount": 100, "type": "outgoing"}
+        body = {"amount": 100, "type": "outgoing"}
         response = requests.post(
-            f"{self.url}/{self.person['pesel']}/transfer", json=body_outgoing
+            f"{self.url}/{self.person['pesel']}/transfer", json=body
         )
 
         account = requests.get(f"{self.url}/{self.person['pesel']}").json()
