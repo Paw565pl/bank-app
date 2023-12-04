@@ -4,9 +4,7 @@ from unittest.mock import Mock, patch
 from ..CompanyBankAccount import CompanyBankAccount
 
 
-@patch(
-    "requests.get"
-)
+@patch("requests.get")
 class TestCreateCompanyBankAccount(unittest.TestCase):
     company_name = "test company"
     nip = "8461627563"

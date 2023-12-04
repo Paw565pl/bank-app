@@ -24,21 +24,21 @@ class CompanyBankAccount(BankAccount):
                 raise ValueError("given nip is not in the gov register")
             self.nip = nip
 
-    def take_loan(self, amount: int) -> bool:
+    def take_loan(self, loan_amount: int) -> bool:
         first_condition = self.__check_if_balance_is_two_times_higher_than_loan_amount(
-            amount
+            loan_amount
         )
         second_condition = self.__check_if_at_least_one_transfer_to_ZUS()
 
         if first_condition and second_condition:
-            self.balance += amount
+            self.balance += loan_amount
             return True
         return False
 
     def __check_if_balance_is_two_times_higher_than_loan_amount(
-        self, amount: int
+        self, loan_amount: int
     ) -> bool:
-        if self.balance >= amount * 2:
+        if self.balance >= loan_amount * 2:
             return True
         return False
 

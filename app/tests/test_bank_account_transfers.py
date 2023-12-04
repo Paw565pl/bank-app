@@ -40,9 +40,7 @@ class TestBankAccountTransfers(unittest.TestCase):
             "Balance is invalid!",
         )
 
-    @patch(
-    "requests.get"
-)
+    @patch("requests.get")
     def test_express_transfer_company_account(self, check_if_nip_is_in_register: Mock):
         check_if_nip_is_in_register.return_value.status_code = 200
         account = CompanyBankAccount(*self.company.values())
