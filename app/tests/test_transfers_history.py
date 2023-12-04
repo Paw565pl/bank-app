@@ -31,12 +31,12 @@ class TestTransferHistory(unittest.TestCase):
         )
 
     @patch(
-        "app.CompanyBankAccount.CompanyBankAccount._CompanyBankAccount__check_if_nip_is_in_register"
-    )
+    "requests.get"
+)
     def test_history_company_account_express_transfer(
         self, check_if_nip_is_in_register: Mock
     ):
-        check_if_nip_is_in_register.return_value = True
+        check_if_nip_is_in_register.return_value.status_code = 200
         account = CompanyBankAccount(*self.company.values())
         account.balance = 100
         account.express_outgoing_transfer(50)

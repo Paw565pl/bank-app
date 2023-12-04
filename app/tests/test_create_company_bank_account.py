@@ -5,7 +5,7 @@ from ..CompanyBankAccount import CompanyBankAccount
 
 
 @patch(
-    "app.CompanyBankAccount.CompanyBankAccount._CompanyBankAccount__check_if_nip_is_in_register"
+    "requests.get"
 )
 class TestCreateCompanyBankAccount(unittest.TestCase):
     company_name = "test company"
@@ -13,7 +13,7 @@ class TestCreateCompanyBankAccount(unittest.TestCase):
     invalid_nip = "1234567891"
 
     def test_valid_data(self, check_if_nip_is_in_register: Mock):
-        check_if_nip_is_in_register.return_value = True
+        check_if_nip_is_in_register.return_value.status_code = 200
         account = CompanyBankAccount(self.company_name, self.nip)
         self.assertEqual(
             account.company_name, self.company_name, "Invalid company name!"
@@ -25,7 +25,7 @@ class TestCreateCompanyBankAccount(unittest.TestCase):
         self.assertEqual(account.nip, "Niepoprawny NIP!", "Nip was saved!")
 
     def test_nip_not_in_gov_register(self, check_if_nip_is_in_register: Mock):
-        check_if_nip_is_in_register.return_value = False
+        check_if_nip_is_in_register.return_value.status_code = 404
         with self.assertRaises(ValueError) as context:
             CompanyBankAccount(self.company_name, self.invalid_nip)
         self.assertTrue(
