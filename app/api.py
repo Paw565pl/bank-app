@@ -1,8 +1,10 @@
 from flask import Flask, jsonify, request
+from dotenv import load_dotenv
 
 from .AccountSet import AccountSet
 from .PrivateBankAccount import PrivateBankAccount
 
+load_dotenv()
 app = Flask(__name__)
 
 

@@ -3,12 +3,17 @@ import unittest
 from parameterized import parameterized
 
 from ..CompanyBankAccount import CompanyBankAccount
+from unittest.mock import Mock, patch
 
 
 class TestLoanCompanyAccount(unittest.TestCase):
     company = {"name": "test", "nip": "1234567890"}
 
-    def setUp(self) -> None:
+    @patch(
+        "app.CompanyBankAccount.CompanyBankAccount._CompanyBankAccount__check_if_nip_is_in_register"
+    )
+    def setUp(self, check_if_nip_is_in_register: Mock) -> None:
+        check_if_nip_is_in_register.return_value = True
         self.account = CompanyBankAccount(*self.company.values())
 
     @parameterized.expand(

@@ -1,7 +1,9 @@
 import unittest
+from unittest.mock import Mock, patch
+
 from ..BankAccount import BankAccount
-from ..PrivateBankAccount import PrivateBankAccount
 from ..CompanyBankAccount import CompanyBankAccount
+from ..PrivateBankAccount import PrivateBankAccount
 
 
 class TestBankAccountTransfers(unittest.TestCase):
@@ -38,7 +40,11 @@ class TestBankAccountTransfers(unittest.TestCase):
             "Balance is invalid!",
         )
 
-    def test_express_transfer_company_account(self):
+    @patch(
+        "app.CompanyBankAccount.CompanyBankAccount._CompanyBankAccount__check_if_nip_is_in_register"
+    )
+    def test_express_transfer_company_account(self, check_if_nip_is_in_register: Mock):
+        check_if_nip_is_in_register.return_value = True
         account = CompanyBankAccount(*self.company.values())
         account.balance = 200
         account.express_outgoing_transfer(100)

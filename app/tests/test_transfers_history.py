@@ -1,3 +1,4 @@
+from unittest.mock import Mock, patch
 import unittest
 
 from ..BankAccount import BankAccount
@@ -29,7 +30,13 @@ class TestTransferHistory(unittest.TestCase):
             account.transfer_history, [-50, -account.express_transfer_fee, 100]
         )
 
-    def test_history_private_company_express_transfer(self):
+    @patch(
+        "app.CompanyBankAccount.CompanyBankAccount._CompanyBankAccount__check_if_nip_is_in_register"
+    )
+    def test_history_company_account_express_transfer(
+        self, check_if_nip_is_in_register: Mock
+    ):
+        check_if_nip_is_in_register.return_value = True
         account = CompanyBankAccount(*self.company.values())
         account.balance = 100
         account.express_outgoing_transfer(50)
