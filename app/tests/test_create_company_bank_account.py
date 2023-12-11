@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import Mock, patch
 
-from ..CompanyBankAccount import CompanyBankAccount
+from app.CompanyBankAccount import CompanyBankAccount
 
 
 @patch("requests.get")
@@ -18,7 +18,7 @@ class TestCreateCompanyBankAccount(unittest.TestCase):
         )
         self.assertEqual(account.nip, self.nip, "Bad nip!")
 
-    def test_invalid_nip(self, _):
+    def test_invalid_nip(self, _: Mock):
         account = CompanyBankAccount(self.company_name, "")
         self.assertEqual(account.nip, "Niepoprawny NIP!", "Nip was saved!")
 

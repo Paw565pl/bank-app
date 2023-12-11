@@ -1,9 +1,9 @@
 import unittest
+from unittest.mock import Mock, patch
 
 from parameterized import parameterized
 
-from ..CompanyBankAccount import CompanyBankAccount
-from unittest.mock import Mock, patch
+from app.CompanyBankAccount import CompanyBankAccount
 
 
 class TestLoanCompanyAccount(unittest.TestCase):

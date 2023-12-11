@@ -1,9 +1,9 @@
-from unittest.mock import Mock, patch
 import unittest
+from unittest.mock import Mock, patch
 
-from ..BankAccount import BankAccount
-from ..CompanyBankAccount import CompanyBankAccount
-from ..PrivateBankAccount import PrivateBankAccount
+from app.BankAccount import BankAccount
+from app.CompanyBankAccount import CompanyBankAccount
+from app.PrivateBankAccount import PrivateBankAccount
 
 
 class TestTransfersHistory(unittest.TestCase):

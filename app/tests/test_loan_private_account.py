@@ -2,7 +2,7 @@ import unittest
 
 from parameterized import parameterized
 
-from ..PrivateBankAccount import PrivateBankAccount
+from app.PrivateBankAccount import PrivateBankAccount
 
 
 class TestLoanPrivateAccount(unittest.TestCase):

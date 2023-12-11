@@ -1,4 +1,4 @@
-from .PrivateBankAccount import PrivateBankAccount
+from app.PrivateBankAccount import PrivateBankAccount
 
 
 class AccountSet:
