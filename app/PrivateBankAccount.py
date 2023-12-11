@@ -1,4 +1,7 @@
+from datetime import date
 from re import match as re_match
+
+from app.SMTPConnection import SMTPConnection
 
 from .BankAccount import BankAccount
 
@@ -69,3 +72,14 @@ class PrivateBankAccount(BankAccount):
         if len(last_five_transfers) != 5:
             return False
         return sum(last_five_transfers) > loan_amount
+
+    def send_transfer_history_to_mail(
+        self, receiver_email: str, smtpConnection: SMTPConnection
+    ) -> bool:
+        today = date.today()
+
+        subject = f"Wyciąg z dnia {today}"
+        content = f"Twoja historia konta to: {self.transfer_history}"
+
+        is_sent_successfully = smtpConnection.send(subject, content, receiver_email)
+        return is_sent_successfully

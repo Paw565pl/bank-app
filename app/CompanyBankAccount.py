@@ -4,6 +4,8 @@ from os import environ
 import requests
 from dotenv import load_dotenv
 
+from app.SMTPConnection import SMTPConnection
+
 from .BankAccount import BankAccount
 
 load_dotenv()
@@ -57,3 +59,14 @@ class CompanyBankAccount(BankAccount):
         if response.status_code == 200:
             return True
         return False
+
+    def send_transfer_history_to_mail(
+        self, receiver: str, smtpConnection: SMTPConnection
+    ) -> bool:
+        today = date.today()
+
+        subject = f"Wyciąg z dnia {today}"
+        content = f"Historia konta Twojej firmy to: {self.transfer_history}"
+
+        is_sent_successfully = smtpConnection.send(subject, content, receiver)
+        return is_sent_successfully
