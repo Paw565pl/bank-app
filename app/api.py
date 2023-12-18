@@ -80,3 +80,21 @@ def private_account_do_transfer(pesel):
         account.outgoing_transfer(amount)
 
     return jsonify({"message": "transfer has been accepted for execution"}), 200
+
+
+@app.patch("/api/accounts/save")
+def save_accounts_to_db():
+    accounts_count = AccountSet.save()
+    return (
+        jsonify({"message": f"successfully saved {accounts_count} to the database"}),
+        200,
+    )
+
+
+@app.patch("/api/accounts/load")
+def load_accounts_from_db():
+    accounts_count = AccountSet.load()
+    return (
+        jsonify({"message": f"successfully loaded {accounts_count} from the database"}),
+        200,
+    )
