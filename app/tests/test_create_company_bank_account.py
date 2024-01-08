@@ -13,9 +13,7 @@ class TestCreateCompanyBankAccount(unittest.TestCase):
     def test_valid_data(self, check_if_nip_is_in_register: Mock):
         check_if_nip_is_in_register.return_value.status_code = 200
         account = CompanyBankAccount(self.company_name, self.nip)
-        self.assertEqual(
-            account.company_name, self.company_name, "Invalid company name!"
-        )
+        self.assertEqual(account.name, self.company_name, "Invalid company name!")
         self.assertEqual(account.nip, self.nip, "Bad nip!")
 
     def test_invalid_nip(self, _: Mock):

@@ -14,7 +14,7 @@ class TestAccountsRegistry(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls) -> None:
-        cls.account = PrivateBankAccount(*cls.person.values())
+        cls.account = PrivateBankAccount(**cls.person)
         AccountsRegistry.add_private_account(cls.account)
 
     @classmethod
@@ -22,7 +22,7 @@ class TestAccountsRegistry(unittest.TestCase):
         AccountsRegistry.private_accounts = []
 
     def test_add(self):
-        new_account = PrivateBankAccount(*self.person.values())
+        new_account = PrivateBankAccount(**self.person)
         AccountsRegistry.add_private_account(new_account)
         self.assertEqual(
             AccountsRegistry.private_accounts,

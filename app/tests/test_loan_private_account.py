@@ -13,7 +13,7 @@ class TestLoanPrivateAccount(unittest.TestCase):
     }
 
     def setUp(self) -> None:
-        self.account = PrivateBankAccount(*self.person.values())
+        self.account = PrivateBankAccount(**self.person)
 
     @parameterized.expand(
         [

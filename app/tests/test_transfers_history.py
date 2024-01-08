@@ -22,7 +22,7 @@ class TestTransfersHistory(unittest.TestCase):
         self.assertEqual(account.transfer_history, [-50, 100])
 
     def test_private_account_express_transfer(self):
-        account = PrivateBankAccount(*self.person.values())
+        account = PrivateBankAccount(**self.person)
         account.balance = 100
         account.express_outgoing_transfer(50)
         account.incoming_transfer(100)
@@ -33,7 +33,7 @@ class TestTransfersHistory(unittest.TestCase):
     @patch("requests.get")
     def test_company_account_express_transfer(self, check_if_nip_is_in_register: Mock):
         check_if_nip_is_in_register.return_value.status_code = 200
-        account = CompanyBankAccount(*self.company.values())
+        account = CompanyBankAccount(**self.company)
         account.balance = 100
         account.express_outgoing_transfer(50)
         account.incoming_transfer(100)

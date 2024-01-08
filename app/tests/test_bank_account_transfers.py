@@ -31,7 +31,7 @@ class TestBankAccountTransfers(unittest.TestCase):
         self.assertEqual(account.balance, 50, "Balance was not decreased!")
 
     def test_express_transfer_private_account(self):
-        account = PrivateBankAccount(*self.person.values())
+        account = PrivateBankAccount(**self.person)
         account.balance = 200
         account.express_outgoing_transfer(100)
         self.assertEqual(
@@ -43,7 +43,7 @@ class TestBankAccountTransfers(unittest.TestCase):
     @patch("requests.get")
     def test_express_transfer_company_account(self, check_if_nip_is_in_register: Mock):
         check_if_nip_is_in_register.return_value.status_code = 200
-        account = CompanyBankAccount(*self.company.values())
+        account = CompanyBankAccount(**self.company)
         account.balance = 200
         account.express_outgoing_transfer(100)
         self.assertEqual(
@@ -53,7 +53,7 @@ class TestBankAccountTransfers(unittest.TestCase):
         )
 
     def test_express_transfer_amount_greater_than_balance(self):
-        account = PrivateBankAccount(*self.person.values())
+        account = PrivateBankAccount(**self.person)
         account.balance = 200
         account.express_outgoing_transfer(300)
         self.assertEqual(account.balance, 200, "Balance was changed!")

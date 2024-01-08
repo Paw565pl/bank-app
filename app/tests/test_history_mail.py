@@ -23,7 +23,7 @@ class TestHistoryMail(unittest.TestCase):
     def test_private_account(self):
         self.smtpInstance.send = MagicMock(return_value=True)
         today = date.today()
-        account = PrivateBankAccount(*self.person.values())
+        account = PrivateBankAccount(**self.person)
         account.balance = 1000
         account.outgoing_transfer(100)
 
@@ -39,7 +39,7 @@ class TestHistoryMail(unittest.TestCase):
     def test_private_account_unsuccessful(self):
         self.smtpInstance.send = MagicMock(return_value=False)
         today = date.today()
-        account = PrivateBankAccount(*self.person.values())
+        account = PrivateBankAccount(**self.person)
         account.balance = 1000
         account.outgoing_transfer(100)
 
@@ -57,7 +57,7 @@ class TestHistoryMail(unittest.TestCase):
         check_if_nip_is_in_register.return_value.status_code = 200
         self.smtpInstance.send = MagicMock(return_value=True)
         today = date.today()
-        account = CompanyBankAccount(*self.company.values())
+        account = CompanyBankAccount(**self.company)
         account.balance = 1000
         account.outgoing_transfer(100)
 

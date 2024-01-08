@@ -12,7 +12,7 @@ class TestLoanCompanyAccount(unittest.TestCase):
     @patch("requests.get")
     def setUp(self, check_if_nip_is_in_register: Mock) -> None:
         check_if_nip_is_in_register.return_value.status_code = 200
-        self.account = CompanyBankAccount(*self.company.values())
+        self.account = CompanyBankAccount(**self.company)
 
     @parameterized.expand(
         [
