@@ -1,5 +1,5 @@
 # type: ignore
-Feature: Account registry
+Feature: Accounts registry
 
  Scenario: User is able to create a new account
    Given Number of accounts in registry equals: "0"

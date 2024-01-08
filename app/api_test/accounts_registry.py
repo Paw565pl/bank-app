@@ -3,7 +3,7 @@ import unittest
 import requests
 
 
-class TestAccountSet(unittest.TestCase):
+class TestAccountsRegistry(unittest.TestCase):
     url = "http://localhost:5000/api/accounts"
     person = {
         "first_name": "Dariusz",

@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, request
 
-from app.AccountSet import AccountSet
+from app.AccountsRegistry import AccountsRegistry
 from app.PrivateBankAccount import PrivateBankAccount
 
 app = Flask(__name__)
@@ -10,25 +10,27 @@ app = Flask(__name__)
 def post_create_private_account():
     data = request.get_json()
 
-    account_with_given_pesel = AccountSet.get_private_account_by_pesel(data["pesel"])
+    account_with_given_pesel = AccountsRegistry.get_private_account_by_pesel(
+        data["pesel"]
+    )
     if account_with_given_pesel is not None:
         return jsonify({"message": "account with this pesel already exists"}), 409
 
     account = PrivateBankAccount(data["first_name"], data["last_name"], data["pesel"])
-    AccountSet.add_private_account(account)
+    AccountsRegistry.add_private_account(account)
 
     return jsonify({"message": "private account was created"}), 201
 
 
 @app.get("/api/accounts/count")
 def get_private_accounts_count():
-    count = AccountSet.get_private_accounts_count()
+    count = AccountsRegistry.get_private_accounts_count()
     return jsonify({"count": count})
 
 
 @app.get("/api/accounts/<pesel>")
 def get_private_account(pesel):
-    account = AccountSet.get_private_account_by_pesel(pesel)
+    account = AccountsRegistry.get_private_account_by_pesel(pesel)
 
     if not account:
         return jsonify({"message": "account with the given pesel does not exist"}), 404
@@ -38,7 +40,7 @@ def get_private_account(pesel):
 
 @app.patch("/api/accounts/<pesel>")
 def patch_private_account(pesel):
-    account = AccountSet.get_private_account_by_pesel(pesel)
+    account = AccountsRegistry.get_private_account_by_pesel(pesel)
 
     if not account:
         return jsonify({"message": "account with the given pesel does not exist"}), 404
@@ -54,12 +56,12 @@ def patch_private_account(pesel):
 
 @app.delete("/api/accounts/<pesel>")
 def delete_private_account(pesel):
-    account = AccountSet.get_private_account_by_pesel(pesel)
+    account = AccountsRegistry.get_private_account_by_pesel(pesel)
 
     if not account:
         return jsonify({"message": "account with the given pesel does not exist"}), 404
 
-    AccountSet.private_accounts.remove(account)
+    AccountsRegistry.private_accounts.remove(account)
 
     return jsonify({"message": "account deleted successfully"})
 
@@ -70,7 +72,7 @@ def private_account_do_transfer(pesel):
     amount = data["amount"]
     type = data["type"].lower()
 
-    account = AccountSet.get_private_account_by_pesel(pesel)
+    account = AccountsRegistry.get_private_account_by_pesel(pesel)
     if not account:
         return jsonify({"message": "account with the given pesel does not exist"}), 404
 
@@ -84,7 +86,7 @@ def private_account_do_transfer(pesel):
 
 @app.patch("/api/accounts/save")
 def save_accounts_to_db():
-    accounts_count = AccountSet.save()
+    accounts_count = AccountsRegistry.save()
     return (
         jsonify({"message": f"successfully saved {accounts_count} to the database"}),
         200,
@@ -93,7 +95,7 @@ def save_accounts_to_db():
 
 @app.patch("/api/accounts/load")
 def load_accounts_from_db():
-    accounts_count = AccountSet.load()
+    accounts_count = AccountsRegistry.load()
     return (
         jsonify({"message": f"successfully loaded {accounts_count} from the database"}),
         200,

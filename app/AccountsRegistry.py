@@ -5,10 +5,10 @@ from pymongo import MongoClient
 from app.PrivateBankAccount import PrivateBankAccount
 
 
-class AccountSet:
+class AccountsRegistry:
     client = MongoClient("localhost", 27017)
     db = client["bank_app_db"]
-    collection = db["accounts_set"]
+    collection = db["accounts_registry"]
 
     private_accounts = []
 
