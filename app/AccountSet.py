@@ -1,3 +1,5 @@
+import copy
+
 from pymongo import MongoClient
 
 from app.PrivateBankAccount import PrivateBankAccount
@@ -32,7 +34,9 @@ class AccountSet:
     def save(self) -> int:
         self.collection.drop()
 
-        private_accounts_dicts = [account.__dict__ for account in self.private_accounts]
+        private_accounts_dicts = [
+            copy.deepcopy(account.__dict__) for account in self.private_accounts
+        ]
         self.collection.insert_many(private_accounts_dicts)
 
         return self.collection.count_documents({})
