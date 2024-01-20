@@ -1,4 +1,4 @@
-import copy
+from copy import deepcopy
 
 from pymongo import MongoClient
 
@@ -35,7 +35,7 @@ class AccountsRegistry:
         self.collection.drop()
 
         private_accounts_dicts = [
-            copy.deepcopy(account.__dict__) for account in self.private_accounts
+            deepcopy(account.__dict__) for account in self.private_accounts
         ]
         self.collection.insert_many(private_accounts_dicts)
 

@@ -1,9 +1,8 @@
 from datetime import date
 from re import match as re_match
 
+from app.BankAccount import BankAccount
 from app.SMTPConnection import SMTPConnection
-
-from .BankAccount import BankAccount
 
 
 class PrivateBankAccount(BankAccount):

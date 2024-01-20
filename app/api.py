@@ -67,7 +67,7 @@ def delete_private_account(pesel):
 
 
 @app.post("/api/accounts/<pesel>/transfer")
-def private_account_do_transfer(pesel):
+def private_account_transfer(pesel):
     data = request.get_json()
     amount = data["amount"]
     type = data["type"].lower()

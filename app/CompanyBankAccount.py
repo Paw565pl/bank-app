@@ -4,9 +4,8 @@ from os import environ
 import requests
 from dotenv import load_dotenv
 
+from app.BankAccount import BankAccount
 from app.SMTPConnection import SMTPConnection
-
-from .BankAccount import BankAccount
 
 load_dotenv()
 

@@ -22,6 +22,16 @@ class TestAccountTransfer(unittest.TestCase):
         response = requests.post(f"{self.url}/11111111111/transfer", json=body)
         self.assertEqual(response.status_code, 404, "Invalid status code!")
 
+    def test_outgoing_transfer_too_small_balance(self):
+        body = {"amount": 100, "type": "outgoing"}
+        response = requests.post(
+            f"{self.url}/{self.person['pesel']}/transfer", json=body
+        )
+
+        account = requests.get(f"{self.url}/{self.person['pesel']}").json()
+        self.assertEqual(response.status_code, 200, "Invalid status code!")
+        self.assertEqual(account["balance"], 0, "Invalid account balance!")
+
     def test_incoming_transfer(self):
         body = {"amount": 100, "type": "incoming"}
         response = requests.post(
@@ -29,7 +39,7 @@ class TestAccountTransfer(unittest.TestCase):
         )
         self.assertEqual(response.status_code, 200, "Invalid status code!")
 
-    def test_successful_outgoing_transfer(self):
+    def test_outgoing_transfer(self):
         body_incoming = {"amount": 200, "type": "incoming"}
         response = requests.post(
             f"{self.url}/{self.person['pesel']}/transfer", json=body_incoming
@@ -43,13 +53,3 @@ class TestAccountTransfer(unittest.TestCase):
         account = requests.get(f"{self.url}/{self.person['pesel']}").json()
         self.assertEqual(response.status_code, 200, "Invalid status code!")
         self.assertEqual(account["balance"], 100, "Invalid account balance!")
-
-    def test_unsuccessful_outgoing_transfer(self):
-        body = {"amount": 100, "type": "outgoing"}
-        response = requests.post(
-            f"{self.url}/{self.person['pesel']}/transfer", json=body
-        )
-
-        account = requests.get(f"{self.url}/{self.person['pesel']}").json()
-        self.assertEqual(response.status_code, 200, "Invalid status code!")
-        self.assertEqual(account["balance"], 0, "Invalid account balance!")
