@@ -1,4 +1,3 @@
-# type: ignore
 Feature: Accounts registry
 
  Scenario: User is able to create a new account

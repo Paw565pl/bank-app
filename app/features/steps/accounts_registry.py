@@ -15,6 +15,8 @@ def create_account(context, first_name, last_name, pesel):
         "last_name": last_name,
         "pesel": pesel,
     }
+    context.pesel = json_body["pesel"]
+
     response = requests.post(base_url + "/api/accounts", json=json_body)
     assert_equal(response.status_code, 201)
 
@@ -28,8 +30,6 @@ def check_accounts_count(context, count):
 @step('Account with pesel "{pesel}" exists in registry')
 def check_if_account_with_given_pesel_exists(context, pesel):
     response = requests.get(base_url + f"/api/accounts/{pesel}")
-    print(pesel)
-    print("GIGA SUSSY", f"/api/accounts/{pesel}")
     assert_equal(response.status_code, 200)
 
 
