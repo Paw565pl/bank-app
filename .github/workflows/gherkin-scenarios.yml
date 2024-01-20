@@ -1,4 +1,4 @@
-name: Gherkin scenarios for api
+name: Gherkin api test
 
 on:
   push:

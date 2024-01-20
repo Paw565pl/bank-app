@@ -1,4 +1,4 @@
-name: Flask api test with MongoDB
+name: Api test
 
 on:
   push:
