@@ -31,21 +31,21 @@ class AccountsRegistry:
         return None
 
     @classmethod
-    def save(self) -> int:
-        self.collection.drop()
+    def save(cls) -> int:
+        cls.collection.drop()
 
         private_accounts_dicts = [
-            deepcopy(account.__dict__) for account in self.private_accounts
+            deepcopy(account.__dict__) for account in cls.private_accounts
         ]
-        self.collection.insert_many(private_accounts_dicts)
+        cls.collection.insert_many(private_accounts_dicts)
 
-        return self.collection.count_documents({})
+        return cls.collection.count_documents({})
 
     @classmethod
-    def load(self) -> int:
-        self.private_accounts = []
+    def load(cls) -> int:
+        cls.private_accounts = []
 
-        db_accounts = self.collection.find()
+        db_accounts = cls.collection.find()
 
         private_accounts_objs = []
         for account in db_accounts:
@@ -56,6 +56,6 @@ class AccountsRegistry:
             account_obj.transfer_history = account["transfer_history"]
             private_accounts_objs.append(account_obj)
 
-        self.private_accounts = private_accounts_objs
+        cls.private_accounts = private_accounts_objs
 
-        return self.collection.count_documents({})
+        return cls.collection.count_documents({})
