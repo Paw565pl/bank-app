@@ -1,6 +1,6 @@
 import unittest
 
-from app.PrivateBankAccount import PrivateBankAccount
+from app.private_bank_account import PrivateBankAccount
 
 
 class TestCreatePrivateBankAccount(unittest.TestCase):

@@ -4,8 +4,8 @@ from os import environ
 import requests
 from dotenv import load_dotenv
 
-from app.BankAccount import BankAccount
-from app.SMTPConnection import SMTPConnection
+from app.bank_account import BankAccount
+from app.smtp_connection import SMTPConnection
 
 load_dotenv()
 
@@ -29,7 +29,7 @@ class CompanyBankAccount(BankAccount):
         first_condition = self.__check_if_balance_is_two_times_higher_than_loan_amount(
             loan_amount
         )
-        second_condition = self.__check_if_at_least_one_transfer_to_ZUS()
+        second_condition = self.__check_if_at_least_one_transfer_to_zus()
 
         if first_condition and second_condition:
             self.balance += loan_amount
@@ -43,12 +43,13 @@ class CompanyBankAccount(BankAccount):
             return True
         return False
 
-    def __check_if_at_least_one_transfer_to_ZUS(self) -> bool:
+    def __check_if_at_least_one_transfer_to_zus(self) -> bool:
         if -1775 in self.transfer_history:
             return True
         return False
 
-    def __check_if_nip_is_in_register(self, nip: str) -> bool:
+    @staticmethod
+    def __check_if_nip_is_in_register(nip: str) -> bool:
         url = environ.get("BANK_APP_MF_URL")
         today = date.today()
         response = requests.get(f"{url}/{nip}", params={"date": today})
@@ -60,12 +61,12 @@ class CompanyBankAccount(BankAccount):
         return False
 
     def send_transfer_history_to_mail(
-        self, receiver: str, smtpConnection: SMTPConnection
+        self, receiver: str, smtp_connection: SMTPConnection
     ) -> bool:
         today = date.today()
 
         subject = f"Wyciąg z dnia {today}"
         content = f"Historia konta Twojej firmy to: {self.transfer_history}"
 
-        is_sent_successfully = smtpConnection.send(subject, content, receiver)
+        is_sent_successfully = smtp_connection.send(subject, content, receiver)
         return is_sent_successfully

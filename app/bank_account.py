@@ -11,12 +11,12 @@ class BankAccount:
             self.transfer_history.append(amount)
 
     def outgoing_transfer(self, amount: int) -> None:
-        if amount > 0 and self.balance >= amount:
+        if 0 < amount <= self.balance:
             self.balance -= amount
             self.transfer_history.append(-amount)
 
     def express_outgoing_transfer(self, amount: int) -> None:
-        if amount > 0 and self.balance >= amount:
+        if 0 < amount <= self.balance:
             self.balance -= amount + self.express_transfer_fee
             self.transfer_history.append(-amount)
             self.transfer_history.append(-self.express_transfer_fee)

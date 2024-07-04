@@ -2,7 +2,7 @@ from copy import deepcopy
 
 from pymongo import MongoClient
 
-from app.PrivateBankAccount import PrivateBankAccount
+from app.private_bank_account import PrivateBankAccount
 
 
 class AccountsRegistry:

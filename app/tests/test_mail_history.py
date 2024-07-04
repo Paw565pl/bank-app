@@ -2,12 +2,12 @@ import unittest
 from datetime import date
 from unittest.mock import MagicMock, Mock, patch
 
-from app.CompanyBankAccount import CompanyBankAccount
-from app.PrivateBankAccount import PrivateBankAccount
-from app.SMTPConnection import SMTPConnection
+from app.company_bank_account import CompanyBankAccount
+from app.private_bank_account import PrivateBankAccount
+from app.smtp_connection import SMTPConnection
 
 
-class TestHistoryMail(unittest.TestCase):
+class TestMailHistory(unittest.TestCase):
     person = {
         "first_name": "Dariusz",
         "last_name": "Januszewski",

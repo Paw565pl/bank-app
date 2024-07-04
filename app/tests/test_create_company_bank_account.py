@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import Mock, patch
 
-from app.CompanyBankAccount import CompanyBankAccount
+from app.company_bank_account import CompanyBankAccount
 
 
 @patch("requests.get")

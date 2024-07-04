@@ -1,8 +1,8 @@
 from datetime import date
 from re import match as re_match
 
-from app.BankAccount import BankAccount
-from app.SMTPConnection import SMTPConnection
+from app.bank_account import BankAccount
+from app.smtp_connection import SMTPConnection
 
 
 class PrivateBankAccount(BankAccount):
@@ -25,7 +25,8 @@ class PrivateBankAccount(BankAccount):
         ):
             self.balance = 50
 
-    def __is_promo_code_valid(self, promo_code: str) -> bool:
+    @staticmethod
+    def __is_promo_code_valid(promo_code: str) -> bool:
         if promo_code is None:
             return False
 
@@ -34,7 +35,8 @@ class PrivateBankAccount(BankAccount):
 
         return bool(match)
 
-    def __is_qualified_for_promo(self, pesel: str) -> bool:
+    @staticmethod
+    def __is_qualified_for_promo(pesel: str) -> bool:
         if pesel == "Niepoprawny pesel!":
             return False
 
@@ -73,12 +75,12 @@ class PrivateBankAccount(BankAccount):
         return sum(last_five_transfers) > loan_amount
 
     def send_transfer_history_to_mail(
-        self, receiver_email: str, smtpConnection: SMTPConnection
+        self, receiver_email: str, smtp_connection: SMTPConnection
     ) -> bool:
         today = date.today()
 
         subject = f"Wyciąg z dnia {today}"
         content = f"Twoja historia konta to: {self.transfer_history}"
 
-        is_sent_successfully = smtpConnection.send(subject, content, receiver_email)
+        is_sent_successfully = smtp_connection.send(subject, content, receiver_email)
         return is_sent_successfully

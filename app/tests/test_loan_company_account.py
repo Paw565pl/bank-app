@@ -3,7 +3,7 @@ from unittest.mock import Mock, patch
 
 from parameterized import parameterized
 
-from app.CompanyBankAccount import CompanyBankAccount
+from app.company_bank_account import CompanyBankAccount
 
 
 class TestLoanCompanyAccount(unittest.TestCase):
