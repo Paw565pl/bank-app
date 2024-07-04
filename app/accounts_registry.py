@@ -1,4 +1,5 @@
 from copy import deepcopy
+from os import getenv
 
 from pymongo import MongoClient
 
@@ -6,7 +7,7 @@ from app.private_bank_account import PrivateBankAccount
 
 
 class AccountsRegistry:
-    client = MongoClient("localhost", 27017)
+    client = MongoClient(getenv("MONGO_URL"))
     db = client["bank_app_db"]
     collection = db["accounts_registry"]
 
