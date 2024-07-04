@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "bank_app"
+version = "0.1.0"
+description = ""
+authors = ["Paw565pl <paw565pl@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+flask = "^3.0.3"
+pymongo = "^4.8.0"
+python-dotenv = "^1.0.1"
+unittest-assertions = "^3.1"
+parameterized = "^0.9.0"
+coverage = "^7.5.4"
+behave = "^1.2.6"
+requests = "^2.32.3"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
