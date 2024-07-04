@@ -1,8 +1,8 @@
 import unittest
 from unittest.mock import Mock, patch
 
-from app.AccountsRegistry import AccountsRegistry
-from app.PrivateBankAccount import PrivateBankAccount
+from app.accounts_registry import AccountsRegistry
+from app.private_bank_account import PrivateBankAccount
 
 
 class TestAccountsRegistry(unittest.TestCase):
@@ -44,7 +44,7 @@ class TestAccountsRegistry(unittest.TestCase):
         )
         self.assertEqual(found_account, self.account, "Wrong account was found!")
 
-    @patch("app.AccountsRegistry.AccountsRegistry.collection")
+    @patch("app.accounts_registry.AccountsRegistry.collection")
     def test_save_accounts_to_db(self, collection_mock: Mock):
         private_accounts_dicts = [
             account.__dict__ for account in AccountsRegistry.private_accounts
@@ -55,7 +55,7 @@ class TestAccountsRegistry(unittest.TestCase):
         collection_mock.drop.assert_called_once()
         collection_mock.insert_many.assert_called_once_with(private_accounts_dicts)
 
-    @patch("app.AccountsRegistry.AccountsRegistry.collection")
+    @patch("app.accounts_registry.AccountsRegistry.collection")
     def test_load_accounts_from_db(self, collection_mock: Mock):
         private_accounts = AccountsRegistry.private_accounts
         private_accounts_dicts = [

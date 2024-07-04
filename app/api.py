@@ -1,13 +1,13 @@
 from flask import Flask, jsonify, request
 
-from app.AccountsRegistry import AccountsRegistry
-from app.PrivateBankAccount import PrivateBankAccount
+from app.accounts_registry import AccountsRegistry
+from app.private_bank_account import PrivateBankAccount
 
 app = Flask(__name__)
 
 
 @app.post("/api/accounts")
-def post_create_private_account():
+def create_private_account():
     data = request.get_json()
 
     account_with_given_pesel = AccountsRegistry.get_private_account_by_pesel(
@@ -39,7 +39,7 @@ def get_private_account(pesel):
 
 
 @app.patch("/api/accounts/<pesel>")
-def patch_private_account(pesel):
+def partially_update_private_account(pesel):
     account = AccountsRegistry.get_private_account_by_pesel(pesel)
 
     if not account:
