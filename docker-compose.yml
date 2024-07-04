@@ -1,0 +1,17 @@
+services:
+  mongo:
+    image: mongo:7-jammy
+    restart: always
+
+  flask:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    environment:
+      - MONGO_URL=mongodb://mongo:27017
+      - BANK_APP_MF_URL="https://wl-api.mf.gov.pl/api/search/nip"
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mongo
