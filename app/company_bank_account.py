@@ -13,7 +13,7 @@ load_dotenv()
 class CompanyBankAccount(BankAccount):
     express_transfer_fee = 5
 
-    def __init__(self, name: str, nip: str) -> None:
+    def __init__(self, name: str, nip: str):
         super().__init__()
         self.name = name
 

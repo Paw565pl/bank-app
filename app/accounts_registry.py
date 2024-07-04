@@ -18,7 +18,7 @@ class AccountsRegistry:
         cls.private_accounts.append(account)
 
     @classmethod
-    def get_private_accounts_count(cls):
+    def get_private_accounts_count(cls) -> int:
         return len(cls.private_accounts)
 
     @classmethod
