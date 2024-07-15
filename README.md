@@ -13,3 +13,5 @@ It is fairly simple thanks to docker. Simply run this command after **cloning th
 ```sh
 docker compose up --build
 ```
+
+That's all! Now simply hit [http://localhost:5000](http://localhost:5000) and enjoy using the app.
